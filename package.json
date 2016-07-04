@@ -10,19 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^13.0.1",
     "flux": "^2.1.1",
     "gulp": "^3.9.1",
-    "gulp-browserify": "^0.5.1",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^4.1.0",
     "gulp-open": "^2.0.0",
     "gulp-util": "^3.0.7",
     "jquery": "^2.2.4",
+    "lodash": "^4.13.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-router": "^2.5.2",
-    "reactify": "^1.1.1"
+    "reactify": "^1.1.1",
+    "uglifyify": "^3.0.2",
+    "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
     "babel-preset-react": "^6.11.1"

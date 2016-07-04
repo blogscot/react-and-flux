@@ -2,7 +2,8 @@ const gulp = require('gulp'),
       connect = require('gulp-connect'),
       open = require('gulp-open'),
       clean = require('gulp-clean'),
-      browserify = require('gulp-browserify'),
+      browserify = require('browserify'),
+      source = require('vinyl-source-stream'),
       reactify = require('reactify'),
       concat = require('gulp-concat')
 
@@ -18,11 +19,12 @@ const config = {
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
     ],
-    dist: './dist'
+    dist: './dist',
+    mainJs: './src/main.js'
   }
 }
 
-gulp.task('server', () => {
+gulp.task('connect', () => {
   connect.server({
     root: ['dist'],
     port: config.port,
@@ -31,7 +33,7 @@ gulp.task('server', () => {
   })
 })
 
-gulp.task('open', () => {
+gulp.task('open', ['connect'], () => {
   gulp.src('dist/index.html')
   .pipe(open({
     uri: config.devBaseUrl + ':' + config.port
@@ -41,6 +43,7 @@ gulp.task('open', () => {
 gulp.task('html', () => {
   gulp.src(config.paths.html)
   .pipe(gulp.dest(config.paths.dist))
+  .pipe(connect.reload())
 })
 
 gulp.task('clean', () => {
@@ -48,21 +51,17 @@ gulp.task('clean', () => {
   .pipe(clean())
 })
 
-gulp.task('livereload', ['html'], () => {
-  gulp.src(config.paths.dist)
-  .pipe(connect.reload())
-})
+gulp.task('js', () => {
+	browserify(config.paths.mainJs)
+		.transform(reactify)
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('bundle.js'))
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+});
 
-gulp.task('bundlejs', () => {
-  gulp.src(config.paths.js)
-  .pipe(browserify({ transform: ['reactify'] }))
-  .on('error', console.log)
-  .pipe(concat('bundle.js'))
-  .pipe(gulp.dest(config.paths.dist + '/scripts'))
-  .pipe(connect.reload())
-})
-
-gulp.task('bundlecss', () => {
+gulp.task('css', () => {
   gulp.src(config.paths.css)
   .pipe(concat('bundle.css'))
   .pipe(gulp.dest(config.paths.dist + '/css'))
@@ -79,16 +78,15 @@ gulp.task('images', () => {
 
 //watch the file changes to trigger livereload
 gulp.task('watch', function() {
-  gulp.watch(config.paths.html, ['livereload'])
-  gulp.watch(config.paths.js, ['bundlejs'])
+  gulp.watch(config.paths.html, ['html'])
+  gulp.watch(config.paths.js, ['js'])
 });
 
 gulp.task('default', [
-  'livereload',
-  'bundlecss',
+  'html',
+  'css',
   'images',
-  'bundlejs',
+  'js',
   'open',
-  'server',
   'watch'
 ])
