@@ -3,6 +3,7 @@ const gulp = require('gulp'),
       open = require('gulp-open'),
       clean = require('gulp-clean'),
       browserify = require('gulp-browserify'),
+      reactify = require('reactify'),
       concat = require('gulp-concat')
 
 
@@ -12,6 +13,10 @@ const config = {
   paths: {
     html: './src/*.html',
     js: './src/**/*.js',
+    css: [
+      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
+    ],
     dist: './dist'
   }
 }
@@ -38,7 +43,7 @@ gulp.task('html', () => {
 })
 
 gulp.task('clean', () => {
-  gulp.src(config.paths.dist + '/*.*')
+  gulp.src(config.paths.dist)
   .pipe(clean())
 })
 
@@ -55,10 +60,23 @@ gulp.task('bundlejs', () => {
   .pipe(connect.reload())
 })
 
+gulp.task('bundlecss', () => {
+  gulp.src(config.paths.css)
+  .pipe(concat('bundle.css'))
+  .pipe(gulp.dest(config.paths.dist + '/css'))
+})
+
 //watch the file changes to trigger livereload
 gulp.task('watch', function() {
   gulp.watch(config.paths.html, ['livereload'])
   gulp.watch(config.paths.js, ['bundlejs'])
 });
 
-gulp.task('default', ['server', 'livereload', 'bundlejs', 'watch', 'open'])
+gulp.task('default', [
+  'server',
+  'livereload',
+  'bundlecss', 
+  'bundlejs',
+  'watch',
+  'open'
+])
