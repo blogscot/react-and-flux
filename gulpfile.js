@@ -1,13 +1,19 @@
-let gulp = require('gulp')
-let connect = require('gulp-connect')
-let open = require('gulp-open')
-let clean = require('gulp-clean')
+const gulp = require('gulp'),
+      connect = require('gulp-connect'),
+      open = require('gulp-open'),
+      clean = require('gulp-clean'),
+      browserify = require('gulp-browserify'),
+      reactify = require('reactify'),
+      stream = require('vinyl-source-stream'),
+      concat = require('gulp-concat')
 
-let config = {
+
+const config = {
   port: 8080,
   devBaseUrl: 'http://localhost',
   paths: {
     html: './src/*.html',
+    js: './src/**/*.js',
     dist: './dist'
   }
 }
@@ -21,22 +27,12 @@ gulp.task('server', () => {
   })
 })
 
-gulp.task('livereload', ['html'], () => {
-  gulp.src(config.paths.dist)
-  .pipe(connect.reload())
-})
-
-gulp.task('open', ['server'], () => {
+gulp.task('open', () => {
   gulp.src('dist/index.html')
   .pipe(open({
     uri: config.devBaseUrl + ':' + config.port
   }))
 })
-
-//watch the file changes to trigger livereload
-gulp.task('watch', function() {
-  gulp.watch(config.paths.html, ['livereload']);
-});
 
 gulp.task('html', () => {
   gulp.src(config.paths.html)
@@ -44,8 +40,27 @@ gulp.task('html', () => {
 })
 
 gulp.task('clean', () => {
-  gulp.src(config.paths.dist)
+  gulp.src(config.paths.dist + '/*.*')
   .pipe(clean())
 })
 
-gulp.task('default', ['server', 'livereload', 'watch', 'open'])
+gulp.task('livereload', ['html'], () => {
+  gulp.src(config.paths.dist)
+  .pipe(connect.reload())
+})
+
+gulp.task('bundlejs', () => {
+  gulp.src(config.paths.js)
+  .pipe(browserify({ transform: ['reactify'] }))
+  .pipe(concat('bundle.js'))
+  .pipe(gulp.dest(config.paths.dist + '/scripts'))
+  .pipe(connect.reload())
+})
+
+//watch the file changes to trigger livereload
+gulp.task('watch', function() {
+  gulp.watch(config.paths.html, ['livereload'])
+  gulp.watch(config.paths.js, ['bundlejs'])
+});
+
+gulp.task('default', ['server', 'livereload', 'bundlejs', 'watch', 'open'])
