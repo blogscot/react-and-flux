@@ -2,6 +2,7 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const Home = require('./components/homePage')
 const About = require('./components/aboutPage')
+const Header = require('./components/header')
 
 const App = React.createClass({
 
@@ -16,7 +17,10 @@ const App = React.createClass({
         Child = Home
     }
     return (
-      <div><Child /></div>
+      <div>
+      <Header />
+      <Child />
+      </div>
     )
   }
 })

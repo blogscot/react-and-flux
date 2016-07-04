@@ -13,6 +13,7 @@ const config = {
   paths: {
     html: './src/*.html',
     js: './src/**/*.js',
+    images: './src/images/*',
     css: [
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -55,6 +56,7 @@ gulp.task('livereload', ['html'], () => {
 gulp.task('bundlejs', () => {
   gulp.src(config.paths.js)
   .pipe(browserify({ transform: ['reactify'] }))
+  .on('error', console.log)
   .pipe(concat('bundle.js'))
   .pipe(gulp.dest(config.paths.dist + '/scripts'))
   .pipe(connect.reload())
@@ -66,6 +68,15 @@ gulp.task('bundlecss', () => {
   .pipe(gulp.dest(config.paths.dist + '/css'))
 })
 
+gulp.task('images', () => {
+  gulp.src(config.paths.images)
+  .pipe(gulp.dest(config.paths.dist + '/images'))
+  .pipe(connect.reload())
+
+  gulp.src('./src/favicon.ico')
+  .pipe(gulp.dest(config.paths.dist))
+})
+
 //watch the file changes to trigger livereload
 gulp.task('watch', function() {
   gulp.watch(config.paths.html, ['livereload'])
@@ -73,10 +84,11 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', [
-  'server',
   'livereload',
-  'bundlecss', 
+  'bundlecss',
+  'images',
   'bundlejs',
-  'watch',
-  'open'
+  'open',
+  'server',
+  'watch'
 ])

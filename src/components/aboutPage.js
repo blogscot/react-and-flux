@@ -4,8 +4,8 @@ const ReactDOM = require('react-dom')
 const AboutPage = React.createClass({
   render() {
     return (
-      <div className="container">
-        <h1>About</h1>
+      <div className="container-fluid">
+      <h1>About</h1>
         <p>This application uses the following technologies:</p>
           <ul>
           <li>React</li>
