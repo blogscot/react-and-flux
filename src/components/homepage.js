@@ -1,5 +1,5 @@
-let React = require('react')
-let ReactDOM = require('react-dom')
+const React = require('react')
+const ReactDOM = require('react-dom')
 
 const Home = React.createClass({
   render() {
