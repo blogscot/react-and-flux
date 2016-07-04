@@ -3,8 +3,6 @@ const gulp = require('gulp'),
       open = require('gulp-open'),
       clean = require('gulp-clean'),
       browserify = require('gulp-browserify'),
-      reactify = require('reactify'),
-      stream = require('vinyl-source-stream'),
       concat = require('gulp-concat')
 
 

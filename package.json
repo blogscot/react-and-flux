@@ -16,9 +16,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^4.1.0",
     "gulp-open": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "reactify": "^1.1.1",
-    "vinyl-source-stream": "^1.1.0"
+    "gulp-util": "^3.0.7"
   },
   "devDependencies": {
     "babel-preset-react": "^6.11.1"
