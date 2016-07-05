@@ -14,12 +14,24 @@ const Redirect = ReactRouter.Redirect
 const IndexRoute = ReactRouter.IndexRoute
 const browserHistory = ReactRouter.browserHistory
 
+const tooBoring = (nextState, replace) => {
+  if (!confirm('Are you sure?')) {
+    replace({
+      pathname: '/',
+      state: { nextState: nextState.location.pathname }
+    })
+  }
+}
+
+const sayGoodbye = (nextState, replace) => confirm('Seeya!')
 
 const Routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
-      <Route path="about" component={AboutPage} />
+      <Route path="about" component={AboutPage}
+        onEnter={tooBoring}
+        onLeave={sayGoodbye} />
       <Route path="authors" component={AuthorPage} />
       <Redirect from="/about-us" to="about" />
       <Route path="*" component={NotFoundPage} />
