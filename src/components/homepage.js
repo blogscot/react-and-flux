@@ -1,7 +1,6 @@
 const React = require('react')
-const ReactDOM = require('react-dom')
 
-const Home = React.createClass({
+const HomePage = React.createClass({
   render() {
     return (
       <div className='container-fluid'>
@@ -14,4 +13,4 @@ const Home = React.createClass({
   }
 })
 
-module.exports = Home
+module.exports = HomePage
