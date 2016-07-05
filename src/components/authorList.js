@@ -1,7 +1,11 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+const React = require('../../node_modules/react/dist/react')
+const ReactDOM = require('../../node_modules/react-dom/dist/react-dom')
 
 const AuthorList = React.createClass({
+  propTypes: {
+    authors: React.PropTypes.array.isRequired,
+    createAuthorRow: React.PropTypes.func.isRequired
+  },
   render() {
     const authors = this.props.authors,
           createAuthorRow = this.props.createAuthorRow

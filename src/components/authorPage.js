@@ -1,9 +1,9 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
+const React = require('../../node_modules/react/dist/react')
+const ReactDOM = require('../../node_modules/react-dom/dist/react-dom')
 const AuthorApi = require('../api/authorApi')
 const AuthorList = require('./authorList')
 
-const Authors = React.createClass({
+const AuthorPage = React.createClass({
   getInitialState() {
     return {
       authors: []
@@ -28,4 +28,4 @@ const Authors = React.createClass({
   }
 })
 
-module.exports = Authors
+module.exports = AuthorPage
