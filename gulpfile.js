@@ -5,7 +5,8 @@ const gulp = require('gulp'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
       reactify = require('reactify'),
-      concat = require('gulp-concat')
+      concat = require('gulp-concat'),
+      historyApiFallback = require('connect-history-api-fallback')
 
 
 const config = {
@@ -27,9 +28,13 @@ const config = {
 gulp.task('connect', () => {
   connect.server({
     root: ['dist'],
+    debug: false,
     port: config.port,
     base: config.devBaseUrl,
-    livereload: true
+    livereload: true,
+    middleware: function(connect, opt) {
+      return [historyApiFallback({})]
+    }
   })
 })
 

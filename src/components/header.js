@@ -7,7 +7,7 @@ const Header = React.createClass({
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
-          <Link to="/funky" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <img src="images/pluralsight-logo.png"></img>
           </Link>
           <ul className="nav navbar-nav">

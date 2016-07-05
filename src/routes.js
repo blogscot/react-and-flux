@@ -10,6 +10,7 @@ const NotFoundPage = require('./components/notFoundPage')
 
 const Router = ReactRouter.Router
 const Route = ReactRouter.Route
+const Redirect = ReactRouter.Redirect
 const IndexRoute = ReactRouter.IndexRoute
 const browserHistory = ReactRouter.browserHistory
 
@@ -20,9 +21,9 @@ const Routes = (
       <IndexRoute component={HomePage} />
       <Route path="about" component={AboutPage} />
       <Route path="authors" component={AuthorPage} />
+      <Redirect from="/about-us" to="about" />
       <Route path="*" component={NotFoundPage} />
     </Route>
-    <Route path="*" component={NotFoundPage} />
   </Router>
 )
 
