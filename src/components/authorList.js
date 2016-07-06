@@ -16,6 +16,7 @@ const AuthorList = React.createClass({
           <thead>
             <th>ID</th>
             <th>Name</th>
+            <th></th>
           </thead>
           <tbody>
             {authors.map(createAuthorRow, this)}

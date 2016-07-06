@@ -7,7 +7,7 @@ let authors = []
 
 const AuthorStore = Object.assign({}, EventEmitter.prototype, {
   addChangeListener(callback) {
-    this.onChange(CHANGE_EVENT, callback)
+    this.on(CHANGE_EVENT, callback)
   },
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback)
@@ -34,8 +34,12 @@ Dispatcher.register((action) => {
       AuthorStore.emitChange()
       break
     case 'UPDATE_AUTHOR':
-      const id = action.author.id
+      let id = action.author.id
       authors[id] = action.author
+      AuthorStore.emitChange()
+      break
+    case 'DELETE_AUTHOR':
+      authors = authors.filter(item => item.id !== action.id)
       AuthorStore.emitChange()
       break
     default:

@@ -28,6 +28,14 @@ const AuthorActions = {
       actionType: ActionTypes.UPDATE_AUTHOR,
       author: updatedAuthor
     })
+  },
+  deleteAuthor(id) {
+    AuthorApi.deleteAuthor(id)
+
+    Dispatcher.dispatch({
+      actionType: ActionTypes.DELETE_AUTHOR,
+      id: id
+    })
   }
 }
 
