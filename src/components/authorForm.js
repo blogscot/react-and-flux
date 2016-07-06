@@ -3,7 +3,12 @@ const React = require('../../node_modules/react/dist/react')
 const Input = require('./textInput')
 
 const AuthorForm = React.createClass({
-
+  propTypes: {
+    author: React.PropTypes.object.isRequired,
+    onSave: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    errors: React.PropTypes.object
+  },
   render() {
     return (
       <div>
