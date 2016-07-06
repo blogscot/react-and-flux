@@ -2,8 +2,10 @@ const React = require('../../node_modules/react/dist/react'),
       browserHistory = require('react-router').browserHistory,
       toastr = require('toastr')
 
-const AuthorForm = require('./authorForm'),
-      AuthorApi = require('../api/AuthorApi')
+const AuthorActions = require('../actions/authorActions')
+const AuthorStore = require('../stores/authorStore')
+
+const AuthorForm = require('./authorForm')
 
 
 const ManageAuthorPage = React.createClass({
@@ -16,7 +18,7 @@ const ManageAuthorPage = React.createClass({
   componentWillMount() {
     const authorId = this.props.params.id
     if (authorId) {
-      this.setState({ author: AuthorApi.getAuthorById(authorId)})
+      this.setState({ author: AuthorStore.getAuthorById(authorId)})
     }
   },
   setAuthorState(event) {
@@ -46,7 +48,11 @@ const ManageAuthorPage = React.createClass({
     if (!this.authorFormIsValid()) {
       return
     }
-    AuthorApi.saveAuthor(this.state.author)
+    if (this.state.author.id) {
+      AuthorActions.updateAuthor(this.state.author)
+    } else {
+      AuthorActions.createAuthor(this.state.author)
+    }
     toastr.success('Author Saved')
     browserHistory.push('/authors')
   },
