@@ -1,5 +1,5 @@
-const React = require('../../node_modules/react/dist/react')
-const Link = require('react-router').Link
+const React = require('../../node_modules/react/dist/react'),
+      Link = require('react-router').Link
 
 const AuthorApi = require('../api/authorApi')
 const AuthorList = require('./authorList')
@@ -17,7 +17,7 @@ const AuthorPage = React.createClass({
     const createAuthorRow = author => {
       return (
         <tr key={author.id}>
-          <td><a href={"/#authors/" + author.id}>{author.id}</a></td>
+          <td><Link to={"/author/" + author.id}>{author.id}</Link></td>
           <td>{author.firstName} {author.lastName}</td>
         </tr>
       )
@@ -26,7 +26,7 @@ const AuthorPage = React.createClass({
       <div>
         <Link to="author" className="btn btn-default">Add Author</Link>
         <AuthorList createAuthorRow={createAuthorRow}
-        authors={this.state.authors}/>
+                    authors={this.state.authors}/>
       </div>
     )
   }

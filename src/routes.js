@@ -35,6 +35,7 @@ const Routes = (
         onLeave={sayGoodbye} />
       <Route path="authors" component={AuthorPage} />
       <Route path="author" component={ManageAuthorPage} />
+      <Route path="author/:id" component={ManageAuthorPage} />
       <Redirect from="/about-us" to="about" />
       <Route path="*" component={NotFoundPage} />
     </Route>

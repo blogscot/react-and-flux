@@ -13,6 +13,12 @@ const ManageAuthorPage = React.createClass({
       errors: {}
     }
   },
+  componentWillMount() {
+    const authorId = this.props.params.id
+    if (authorId) {
+      this.setState({ author: AuthorApi.getAuthorById(authorId)})
+    }
+  },
   setAuthorState(event) {
     const field = event.target.name
     const value = event.target.value
