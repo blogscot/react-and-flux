@@ -3,6 +3,7 @@ const React = require('../../node_modules/react/dist/react')
 const Input = require('./textInput')
 
 const AuthorForm = React.createClass({
+
   render() {
     return (
       <div>
@@ -14,6 +15,7 @@ const AuthorForm = React.createClass({
             label="First Name"
             placeholder="First Name"
             value={this.props.author.firstName}
+            error={this.props.errors.firstName}
             onChange={this.props.onChange} />
           <br />
 
@@ -22,6 +24,7 @@ const AuthorForm = React.createClass({
             label="Last Name"
             placeholder="Last Name"
             value={this.props.author.lastName}
+            error={this.props.errors.lastName}
             onChange={this.props.onChange} />
           <br />
 
