@@ -1,4 +1,6 @@
 const React = require('../../node_modules/react/dist/react')
+const Link = require('react-router').Link
+
 const AuthorApi = require('../api/authorApi')
 const AuthorList = require('./authorList')
 
@@ -21,8 +23,11 @@ const AuthorPage = React.createClass({
       )
     }
     return (
-      <AuthorList createAuthorRow={createAuthorRow}
-                  authors={this.state.authors}/>
+      <div>
+        <Link to="author" className="btn btn-default">Add Author</Link>
+        <AuthorList createAuthorRow={createAuthorRow}
+        authors={this.state.authors}/>
+      </div>
     )
   }
 })

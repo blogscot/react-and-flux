@@ -4,6 +4,7 @@ const ReactRouter = require('react-router')
 const AboutPage = require('./components/aboutPage')
 const App = require('./components/app')
 const AuthorPage = require('./components/authorPage')
+const ManageAuthorPage = require('./components/manageAuthorPage')
 const Header = require('./components/header')
 const HomePage = require('./components/homePage')
 const NotFoundPage = require('./components/notFoundPage')
@@ -33,6 +34,7 @@ const Routes = (
         onEnter={tooBoring}
         onLeave={sayGoodbye} />
       <Route path="authors" component={AuthorPage} />
+      <Route path="author" component={ManageAuthorPage} />
       <Redirect from="/about-us" to="about" />
       <Route path="*" component={NotFoundPage} />
     </Route>
