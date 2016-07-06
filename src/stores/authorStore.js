@@ -19,7 +19,7 @@ const AuthorStore = Object.assign({}, EventEmitter.prototype, {
     return authors
   },
   getAuthorById(id) {
-    return authors.filter(item => item.id === id)
+    return authors.filter(item => item.id === id)[0]
   }
 })
 
@@ -34,8 +34,8 @@ Dispatcher.register((action) => {
       AuthorStore.emitChange()
       break
     case 'UPDATE_AUTHOR':
-      const id = action.updatedAuthor.id
-      authors[id] = updatedAuthor
+      const id = action.author.id
+      authors[id] = action.author
       AuthorStore.emitChange()
       break
     default:
