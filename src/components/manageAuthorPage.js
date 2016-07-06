@@ -1,5 +1,8 @@
 const React = require('../../node_modules/react/dist/react')
-const AuthorForm = require('./authorForm')
+
+const AuthorForm = require('./authorForm'),
+      AuthorApi = require('../api/AuthorApi')
+
 
 const ManageAuthorPage = React.createClass({
   getInitialState() {
@@ -17,12 +20,17 @@ const ManageAuthorPage = React.createClass({
     this.state.author[field] = value
     return this.setState({ author: this.state.author })
   },
+  saveAuthor(event) {
+    event.preventDefault()
+    AuthorApi.saveAuthor(this.state.author)
+  },
   render() {
     return (
       <div>
         <AuthorForm
           author={this.state.author}
-          onChange={this.setAuthorState} />
+          onChange={this.setAuthorState}
+          onSave={this.saveAuthor} />
       </div>
     )
   }
